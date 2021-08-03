@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -95,5 +98,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return cursor;
 
+    }
+
+    public List<User> getUsers (){
+        List<User> l = new ArrayList<>();
+        Cursor res = this.getdata();
+        while(res.moveToNext())
+        {
+            User u = new User();
+            u.setName(res.getString(0));
+            u.setDob(res.getString(2));
+            u.setId(res.getString(1));
+            l.add(u);
+        }
+        return l;
     }
 }
